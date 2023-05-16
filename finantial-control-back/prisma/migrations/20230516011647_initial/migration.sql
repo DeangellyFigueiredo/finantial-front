@@ -1,0 +1,35 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- CreateTable
+CREATE TABLE [dbo].[Fuel] (
+    [id] NVARCHAR(1000) NOT NULL,
+    [dayOfRefill] NVARCHAR(1000) NOT NULL,
+    [dayFuelEnds] NVARCHAR(1000) NOT NULL,
+    [initialKm] NVARCHAR(1000) NOT NULL,
+    [finalKm] NVARCHAR(1000) NOT NULL,
+    [approximateKm] NVARCHAR(1000) NOT NULL,
+    [fuelGasoline] NVARCHAR(1000) NOT NULL,
+    [fuelAlcohol] NVARCHAR(1000) NOT NULL,
+    [totalFuel] NVARCHAR(1000) NOT NULL,
+    [length] NVARCHAR(1000) NOT NULL,
+    [valuePaid] NVARCHAR(1000) NOT NULL,
+    [carPerformance] NVARCHAR(1000) NOT NULL,
+    [createdAt] DATETIME2 NOT NULL CONSTRAINT [Fuel_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
+    [updatedAt] DATETIME2 NOT NULL,
+    CONSTRAINT [Fuel_pkey] PRIMARY KEY CLUSTERED ([id])
+);
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
