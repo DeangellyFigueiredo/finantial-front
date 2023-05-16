@@ -1,9 +1,9 @@
-import EditIcon from '@mui/icons-material/Edit';
-import {Stack} from '@mui/material';
-import {Box} from '@mui/system';
-import {DataGrid, GridCellParams, GridColDef} from '@mui/x-data-grid';
-import {useState} from 'react';
-import {table, tableContainer} from './styles';
+import { FuelHistory } from "../../interface/fuelHistory";
+import { Stack } from "@mui/material";
+import { Box } from "@mui/system";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { useState } from "react";
+import { table, tableContainer } from "./styles";
 
 interface TableGridProps {
   rows: any[];
@@ -16,26 +16,25 @@ interface TableGridProps {
   onView?: (id: string) => void;
   handleSkip?: (row: number) => void;
   handleTake?: (row: number) => void;
-
+  onCellEditCommit: (params: FuelHistory) => void;
   titleDelete?: string;
   subtitleDelete?: string;
 }
 export function TableGrid(props: TableGridProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     const field = event.currentTarget.dataset.field!;
     const id = event.currentTarget.parentElement!.dataset.id!;
-    const row = props.rows.find(r => r.id === id)!;
+    const row = props.rows.find((r) => r.id === id)!;
     setValue(row[field]);
     setAnchorEl(event.currentTarget);
   };
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-  
 
-  const columns = [...props.columns]
+  const columns = [...props.columns];
 
   return (
     <Box sx={tableContainer}>
@@ -46,7 +45,7 @@ export function TableGrid(props: TableGridProps) {
           ...column,
           flex: 1,
           sortable: false,
-          headerClassName: 'header',
+          headerClassName: "header",
         }))}
         sx={table}
         componentsProps={{
@@ -69,7 +68,11 @@ export function TableGrid(props: TableGridProps) {
                 Adicione dados para exibir na tabela
               </Stack>
             </>
-          )
+          ),
+        }}
+        disableColumnMenu
+        processRowUpdate={(params) => {
+          props.onCellEditCommit(params);
         }}
       />
     </Box>

@@ -1,4 +1,4 @@
-import { formatDate } from "@/app/utils/Date";
+import { formatDate } from "../../utils/Date";
 import { GridColDef } from "@mui/x-data-grid";
 
 export function tabValue(open: boolean, values: string) {
@@ -8,7 +8,7 @@ export function tabValue(open: boolean, values: string) {
 export const columnsRoutesExtra: GridColDef[] = [
   {
     field: "dayOfRefill",
-    headerName: "Dia do Refil",
+    headerName: "Dia do Abastecimento",
 
     renderCell: (params) => {
       return params.row.dayOfRefill ? formatDate(params.row.dayOfRefill) : "";
@@ -16,22 +16,23 @@ export const columnsRoutesExtra: GridColDef[] = [
   },
   {
     field: "dayFuelEnds",
-    headerName: "Dia do Fim do Combustível",
-
+    headerName: "Dia da Reserva",
+    editable: true,
     renderCell: (params) => {
       return params.row.dayFuelEnds ? formatDate(params.row.dayFuelEnds) : "";
     },
   },
   { field: "initialKm", headerName: "Km Inicial" },
-  { field: "finalKm", headerName: "Km Final" },
+  {
+    field: "finalKm",
+    headerName: "Km Final",
+    editable: true,
+  },
   { field: "approximateKm", headerName: "Km Aproximado" },
-  { field: "fuelGasoline", headerName: "Combustível Gasolina" },
-  { field: "fuelAlcohol", headerName: "Combustível Álcool" },
-  { field: "totalFuel", headerName: "Combustível Total" },
-  { field: "length", headerName: "Distância Percorrida" ,
-
-  
-},
+  { field: "fuelGasoline", headerName: "Gasolina(L)" },
+  { field: "fuelAlcohol", headerName: "Álcool(L)" },
+  { field: "totalFuel", headerName: "Total(L)" },
+  { field: "length", headerName: "Distância Percorrida", minWidth: 200 },
   { field: "valuePaid", headerName: "Valor Pago" },
   {
     field: "carPerformance",

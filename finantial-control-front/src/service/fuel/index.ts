@@ -1,3 +1,4 @@
+import { FuelHistory } from "@/app/interface/fuelHistory";
 import { api } from "../api";
 
 export function CreateFuel(data: any) {
@@ -10,4 +11,8 @@ export function CreateFuel(data: any) {
 
 export function ListFuel() {
   return api.get("/api/fuel/");
+}
+
+export function UpdateFuel(data: Partial<FuelHistory>) {
+  return api.patch(`/api/fuel/${data.id}/`, data);
 }

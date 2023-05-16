@@ -3,18 +3,16 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import {
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { container } from "../toolbar/styles";
 import { object, string, number, date, InferType } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CreateFuel } from "@/app/service/fuel";
+import { CreateFuel } from "../../service/fuel";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 interface CreateFuelHistory {
@@ -159,7 +157,7 @@ export function CreateHistoryModal({ open, setOpen , updateList}: CreateFuelHist
             paddingBottom: "2px",
           }}
           component={"form"}
-          onSubmit={handleSubmit(onSubmit, console.log(errors))}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit">Adicionar</Button>

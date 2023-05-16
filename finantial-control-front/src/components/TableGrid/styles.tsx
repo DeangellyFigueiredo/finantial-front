@@ -10,9 +10,9 @@ export const table = {
   width: '100%',
   border: 0,
   '& .super-app-theme--header': {
-    backgroundColor: colors.primary_lightest,
-    border: colors.primary_lightest,
-    color: colors.neutral_darkest,
+    backgroundColor: colors.accent,
+    border: colors.accent,
+    color: colors.accent  ,
     padding: '20px',
     height: '10px',
   },
@@ -22,4 +22,9 @@ export const table = {
   '& .MuiDataGrid-iconSeparator': {
     color: colors.primary_lightest,
   },
+  '& .MuiDataGrid-columnHeaderTitleContainer':{
+    backgroundColor: colors.accent,
+    color: '#FFFFFF',
+    padding: '10px',
+  }
 };

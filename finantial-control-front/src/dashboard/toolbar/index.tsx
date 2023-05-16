@@ -1,8 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import {Box} from '@mui/system';
-import {Typography} from '@mui/material';
-import { actions, container, titleStyle } from './styles';
+import { actions, container } from './styles';
 
 interface ToolbarContainerProps {
   title: string;
@@ -15,10 +14,9 @@ export function ToolbarFuel({
 }: ToolbarContainerProps) {
   return (
     <Box sx={container}>
-      <Typography style={titleStyle}>{title}</Typography>
       <Box sx={actions}>
           <>
-            <Button variant="contained" onClick={() => openNewView()}>
+            <Button variant="contained" sx={actions} onClick={() => openNewView()}>
               Registrar Abastecimento
             </Button>
           </>
