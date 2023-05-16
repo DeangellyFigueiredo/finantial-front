@@ -11,14 +11,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { actions, container, titleStyle } from "../toolbar/styles";
+import { container } from "../toolbar/styles";
 import { object, string, number, date, InferType } from "yup";
-import { FuelHistory } from "@/app/interface/fuelHistory";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import { CreateFuel } from "@/app/service/fuel";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 interface CreateFuelHistory {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateList: () => void;
 }
 
 const schema = object({
@@ -30,16 +32,48 @@ const schema = object({
 });
 type Fuel = InferType<typeof schema>;
 
-export function CreateHistoryModal({ open, setOpen }: CreateFuelHistory) {
+export function CreateHistoryModal({ open, setOpen , updateList}: CreateFuelHistory) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FuelHistory>({
+  } = useForm<CreateFuelHistory>({
     resolver: yupResolver(schema),
   });
 
+  const onSubmit = (data: CreateFuelHistory) => {
+    CreateFuel(data)
+      .then((response) => {
+        if (response.status === 201) {
+          toast.success("Registro adicionado com sucesso.", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          handleClose();
+          reset();
+          updateList()
+        }
+      })
+      .catch(() => {
+        toast.error("Erro ao adicionar o registro", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      });
+  };
   const handleClose = () => {
     reset();
     setOpen(false);
@@ -117,10 +151,19 @@ export function CreateHistoryModal({ open, setOpen }: CreateFuelHistory) {
             />
           </Box>
         </DialogContent>
-        <DialogActions>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "1rem",
+            justifyContent: "end",
+            paddingBottom: "2px",
+          }}
+          component={"form"}
+          onSubmit={handleSubmit(onSubmit, console.log(errors))}
+        >
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Adicionar</Button>
-        </DialogActions>
+          <Button type="submit">Adicionar</Button>
+        </Box>
       </Dialog>
     </Box>
   );
