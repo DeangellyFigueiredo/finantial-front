@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateFuelDto } from 'src/dto/createFuel.dto';
 import { MappedFuel } from 'src/dto/mappedFuel.dto';
+import { UpdateFuel } from 'src/dto/updateFuel.dto';
 import { Fuel } from 'src/entity/Fuel';
 import IFuelRepository from 'src/repository/fuel/fuel.repository.contract';
 
@@ -18,6 +19,10 @@ export class FuelService {
   async findAll(): Promise<MappedFuel[]> {
     const items = await this.fuelRepository.findAll();
     return this.mappedFuel(items);
+  }
+
+  async update(id: string, updateFuel: UpdateFuel): Promise<any> {
+    return await this.fuelRepository.update(id, updateFuel);
   }
 
   private mappedFuel(fuel: Fuel[]): MappedFuel[] {

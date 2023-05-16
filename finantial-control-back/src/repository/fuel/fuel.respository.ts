@@ -29,4 +29,13 @@ export class FuelRepository implements IFuelRepository {
   findAll(): Promise<Fuel[]> {
     return this.repository.fuel.findMany();
   }
+
+  async update(id: string, data: Fuel): Promise<Fuel> {
+    return await this.repository.fuel.update({
+      where: { id },
+      data: {
+        finalKm: data.finalKm,
+      },
+    });
+  }
 }
