@@ -13,16 +13,16 @@ datasource db {
 model Fuel {
   id             String   @id @default(uuid())
   dayOfRefill    String
-  dayFuelEnds    String
+  dayFuelEnds    String?
   initialKm      String
-  finalKm        String
-  approximateKm  String
+  finalKm        String?
+  approximateKm  String?
   fuelGasoline   String
   fuelAlcohol    String
   totalFuel      String
-  length         String
+  length         String?
   valuePaid      String
-  carPerformance String
+  carPerformance String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }

@@ -4,16 +4,16 @@ import { v4 as uuid } from 'uuid';
 export class Fuel {
   id: string;
   dayOfRefill: string;
-  dayFuelEnds: string;
+  dayFuelEnds?: string;
   initialKm: string;
-  finalKm: string;
-  approximateKm: string;
+  finalKm?: string;
+  approximateKm?: string;
   fuelGasoline: string;
   fuelAlcohol: string;
-  totalFuel: string;
-  length: string;
+  totalFuel?: string;
+  length?: string;
   valuePaid: string;
-  carPerformance: string;
+  carPerformance?: string;
   createdAt?: Date;
   updatedAt?: Date;
 
